@@ -74,7 +74,7 @@ export const TabBar = ({state, descriptors, navigation}: BottomTabBarProps) => {
 
 const style = StyleSheet.create({
   tabContainer: {
-    height: 60,
+    height: 65,
     shadowOffset: {
       width: 0,
       height: -1,

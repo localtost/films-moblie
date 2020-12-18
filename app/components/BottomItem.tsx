@@ -1,11 +1,12 @@
 import React from 'react';
-import {StyleSheet, View} from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 type Props = {
   iconName: string;
   isCurrent?: boolean;
 };
 const BottomMenuItem: React.FC<Props> = ({iconName, isCurrent}) => {
+  const name: string = iconName === 'Scan1' ? 'Scan' : iconName;
   return (
     <View style={styles.container}>
       <AntDesign
@@ -13,6 +14,7 @@ const BottomMenuItem: React.FC<Props> = ({iconName, isCurrent}) => {
         size={35}
         style={{color: isCurrent ? 'black' : 'grey'}}
       />
+      <Text style={styles.text}>{name}</Text>
     </View>
   );
 };
@@ -23,5 +25,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     paddingTop: 10,
+  },
+  text: {
+    paddingTop: 5,
   },
 });

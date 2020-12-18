@@ -3,6 +3,7 @@ export type RootStackParamList = {
   Setting: undefined;
   Pushpino: undefined;
   User: undefined;
+  Scan1: undefined;
 };
 export type HomeStackParamList = {
   Home: undefined;

@@ -2,21 +2,22 @@ import React, {useState} from 'react';
 import {
   View,
   TouchableOpacity,
-  Dimensions,
   StyleSheet,
   Animated,
+  useWindowDimensions,
 } from 'react-native';
 import {BottomTabBarProps} from '@react-navigation/bottom-tabs';
 import BottomMenuItem from './BottomItem';
+import {Theme} from '../utils/theme';
 
 export const TabBar = ({state, descriptors, navigation}: BottomTabBarProps) => {
-  const totalWidth: number = Dimensions.get('window').width;
+  const totalWidth: number = useWindowDimensions().width;
   const [translateValue] = useState<Animated.AnimatedValue>(
     new Animated.Value(0),
   );
   const tabWidth: number = totalWidth / state.routes.length;
   return (
-    <View style={[style.tabContainer, {width: totalWidth}]}>
+    <View style={[style.tabContainer]}>
       <View style={{flexDirection: 'row'}}>
         <Animated.View
           style={[
@@ -75,13 +76,14 @@ export const TabBar = ({state, descriptors, navigation}: BottomTabBarProps) => {
 const style = StyleSheet.create({
   tabContainer: {
     height: 65,
+    width: '100%',
     shadowOffset: {
       width: 0,
       height: -1,
     },
     shadowOpacity: 0.1,
     shadowRadius: 4.0,
-    backgroundColor: 'white',
+    backgroundColor: Theme.lightSlateBlue,
     elevation: 10,
     position: 'absolute',
     bottom: 0,
@@ -91,7 +93,7 @@ const style = StyleSheet.create({
     position: 'absolute',
     top: 0,
     left: 10,
-    backgroundColor: 'black',
+    backgroundColor: Theme.white,
     borderRadius: 10,
     width: 50,
   },

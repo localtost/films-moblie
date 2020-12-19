@@ -1,20 +1,21 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {Dimensions, StyleSheet, View} from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import {Theme} from '../utils/theme';
+
 type Props = {
   iconName: string;
   isCurrent?: boolean;
 };
 const BottomMenuItem: React.FC<Props> = ({iconName, isCurrent}) => {
-  const name: string = iconName === 'Scan1' ? 'Scan' : iconName;
+  const width: number = Dimensions.get('window').width;
   return (
     <View style={styles.container}>
       <AntDesign
         name={iconName.toLowerCase()}
-        size={35}
-        style={{color: isCurrent ? 'black' : 'grey'}}
+        size={width / 15}
+        style={{color: isCurrent ? Theme.white : Theme.darkenSlateBlue}}
       />
-      <Text style={styles.text}>{name}</Text>
     </View>
   );
 };

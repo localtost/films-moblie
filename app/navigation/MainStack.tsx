@@ -17,7 +17,7 @@ export default function MainStack(): JSX.Element {
         screenOptions={{
           animationTypeForReplace: !auth ? 'pop' : 'push',
         }}>
-        {!auth ? (
+        {auth ? (
           <Main.Screen name="Main" component={ButtonStack} />
         ) : (
           <Main.Screen name="Auth" component={RegistrationStack} />

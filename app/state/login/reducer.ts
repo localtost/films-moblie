@@ -15,7 +15,7 @@ const loginReducer: Reducer<LoginState> = (
 ): LoginState => {
   switch (action.type) {
     case loginStart:
-      return {...state, loading: true};
+      return {...state, loading: true, auth: true};
     case loginSuccess:
       return {
         ...state,

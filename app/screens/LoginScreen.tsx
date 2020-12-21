@@ -12,8 +12,14 @@ import {Theme} from '../utils/theme';
 import {images} from '../utils/image';
 import Input from '../components/Input';
 import {Formik} from 'formik';
+import {loginInitialValues} from '../schema/initialValues';
+import {loginSchema} from '../schema';
+import {useDispatch} from 'react-redux';
+import {Login} from '../state/login/actionCreaters';
+
 const LoginScreen: React.FC = () => {
   const [id, setId] = useState<number | null>(null);
+  const dispatch = useDispatch();
   let opacity = new Animated.Value(1);
   const animate = () => {
     opacity.setValue(1);
@@ -51,7 +57,7 @@ const LoginScreen: React.FC = () => {
             {images.map((el, index) => {
               const scaleItem = id === index ? opacity : 1;
               return (
-                <TouchableOpacity onPress={() => setId(index)}>
+                <TouchableOpacity key={index} onPress={() => setId(index)}>
                   <Animated.View style={{transform: [{scale: scaleItem}]}}>
                     <Text
                       style={[
@@ -78,18 +84,61 @@ const LoginScreen: React.FC = () => {
             })}
           </View>
         </View>
-        <Formik initialValues={{}} onSubmit={() => {}}>
-          {() => (
+        <Formik
+          initialValues={loginInitialValues}
+          onSubmit={() => {
+            dispatch(Login());
+          }}
+          validationSchema={loginSchema}>
+          {({
+            values,
+            handleChange,
+            handleBlur,
+            errors,
+            touched,
+            handleSubmit,
+          }) => (
             <View style={styles.inputsWrapperForm}>
-              <Input placeholder="User Name" type="user" />
-              <Input type="mail" placeholder="Email" />
-              <Input secureTextEntry placeholder="Password" type="lock" />
+              <Input
+                placeholder="User Name"
+                type="user"
+                onBlur={handleBlur('username')}
+                value={values.username}
+                onChangeText={handleChange('username')}
+                errors={touched.username && errors.username}
+                touched={touched.username}
+              />
+              <Input
+                type="mail"
+                placeholder="Email"
+                onBlur={handleBlur('email')}
+                onChangeText={handleChange('email')}
+                value={values.email}
+                errors={touched.email && errors.email}
+                touched={touched.email}
+              />
+              <Input
+                secureTextEntry
+                placeholder="Password"
+                type="lock"
+                onBlur={handleBlur('password')}
+                onChangeText={handleChange('password')}
+                errors={touched.password && errors.password}
+                value={values.password}
+                touched={touched.password}
+              />
               <Input
                 type="lock"
+                onBlur={handleBlur('confirm')}
+                onChangeText={handleChange('confirm')}
+                value={values.confirm}
                 secureTextEntry
                 placeholder="Confirm Password"
+                errors={touched.confirm && errors.confirm}
+                touched={touched.confirm}
               />
               <TouchableOpacity
+                onPress={handleSubmit}
                 style={{
                   backgroundColor: Theme.crimson,
                   borderRadius: 40,

@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import {Theme} from '../utils/theme';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+
 interface Props {
   secureTextEntry?: boolean;
   placeholder: string;
@@ -18,8 +19,8 @@ interface Props {
   onChangeText?: (e: string | ChangeEvent<any>) => void;
   onBlur?: (e: NativeSyntheticEvent<TextInputFocusEventData>) => void;
   errors?: string | undefined | boolean;
-  touched?: boolean | undefined | string;
 }
+
 const Input: React.FC<Props> = (props) => {
   const [isError, setIsError] = useState<boolean>(false);
   const [value, _] = useState<Animated.AnimatedValue>(new Animated.Value(0));
@@ -46,7 +47,7 @@ const Input: React.FC<Props> = (props) => {
       setIsError(false);
     }
   };
-  useEffect(checkError, [props.errors, props.touched]);
+  useEffect(checkError, [props.errors]);
   return (
     <View>
       <Animated.View style={[styles.container, {paddingLeft: value}]}>

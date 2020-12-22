@@ -14,7 +14,7 @@ const BottomMenuItem: React.FC<Props> = ({iconName, isCurrent}) => {
       <AntDesign
         name={iconName.toLowerCase()}
         size={width / 15}
-        style={{color: isCurrent ? Theme.white : Theme.darkenSlateBlue}}
+        style={{color: isCurrent ? Theme.crimson : Theme.darkenSlateBlue}}
       />
     </View>
   );

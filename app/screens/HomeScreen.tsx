@@ -4,7 +4,7 @@ import {ScrollView, Text} from 'react-native';
 const HomeScreen: React.FC = () => {
   return (
     <ScrollView style={{backgroundColor: 'white'}}>
-      <Text>HomeScreen</Text>
+      <Text>UserScreen</Text>
     </ScrollView>
   );
 };

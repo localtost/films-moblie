@@ -29,7 +29,7 @@ const ButtonStack = () => {
       <View
         style={{
           height: tabbed / 55,
-          backgroundColor: Theme.lightSlateBlue,
+          backgroundColor: Theme.white,
         }}
       />
     </>

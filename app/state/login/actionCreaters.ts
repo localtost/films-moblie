@@ -1,6 +1,11 @@
-import {LoginActions} from './type';
-import {loginStart} from './contants';
+import {TestLogin} from './type';
+import {login, logout} from './contants';
+import {User} from './interfaces';
 
-export const Login = (): LoginActions => ({
-  type: loginStart,
+export const Login = (data: User): TestLogin => ({
+  type: login,
+  payload: data,
+});
+export const Logout = (): TestLogin => ({
+  type: logout,
 });

@@ -1,21 +1,22 @@
 import React, {useMemo, useState} from 'react';
 import {
-  Image,
   SafeAreaView,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
   Animated,
+  Alert,
 } from 'react-native';
 import {Theme} from '../utils/theme';
-import {images} from '../utils/image';
+import {images, RegistrationValues} from '../utils/data';
 import Input from '../components/Input';
 import {Formik} from 'formik';
 import {loginInitialValues} from '../schema/initialValues';
 import {loginSchema} from '../schema';
 import {useDispatch} from 'react-redux';
 import {Login} from '../state/login/actionCreaters';
+import RoleItem from '../components/RoleItem';
 
 const LoginScreen: React.FC = () => {
   const [id, setId] = useState<number | null>(null);
@@ -29,56 +30,25 @@ const LoginScreen: React.FC = () => {
       useNativeDriver: true,
     }).start();
   };
+  const handleSubmit = (values: any): void => {
+    if (id == null) {
+      return Alert.alert('PLease choose your Role');
+    }
+    dispatch(Login({...values, role: id}));
+  };
   useMemo(animate, [id]);
   return (
     <SafeAreaView style={styles.formContainer}>
-      <Text
-        style={{
-          alignSelf: 'center',
-          fontWeight: 'bold',
-          fontSize: 35,
-          color: Theme.white,
-        }}>
-        Sign Up
-      </Text>
-
+      <Text style={styles.signUpTitle}>Sign Up</Text>
       <View style={styles.formContainer}>
         <View style={[styles.inputsWrapperForm, {width: '100%'}]}>
-          <Text
-            style={{
-              alignSelf: 'center',
-              fontWeight: 'bold',
-              fontSize: 25,
-              color: Theme.lightSlateBlue,
-            }}>
-            Who are You?
-          </Text>
+          <Text style={styles.whoAreYouTitle}>Who are You?</Text>
           <View style={styles.roleSelectionWrapper}>
             {images.map((el, index) => {
               const scaleItem = id === index ? opacity : 1;
               return (
                 <TouchableOpacity key={index} onPress={() => setId(index)}>
-                  <Animated.View style={{transform: [{scale: scaleItem}]}}>
-                    <Text
-                      style={[
-                        {
-                          alignSelf: 'center',
-                          fontSize: 17,
-                          fontWeight: 'bold',
-                          color: el.color,
-                        },
-                      ]}>
-                      {el.title}
-                    </Text>
-                  </Animated.View>
-
-                  <Animated.View style={{transform: [{scale: scaleItem}]}}>
-                    <Image
-                      source={el.url}
-                      resizeMethod="scale"
-                      style={{width: 120, height: 120}}
-                    />
-                  </Animated.View>
+                  <RoleItem scale={scaleItem} role={el} />
                 </TouchableOpacity>
               );
             })}
@@ -86,9 +56,7 @@ const LoginScreen: React.FC = () => {
         </View>
         <Formik
           initialValues={loginInitialValues}
-          onSubmit={() => {
-            dispatch(Login());
-          }}
+          onSubmit={handleSubmit}
           validationSchema={loginSchema}>
           {({
             values,
@@ -99,63 +67,32 @@ const LoginScreen: React.FC = () => {
             handleSubmit,
           }) => (
             <View style={styles.inputsWrapperForm}>
-              <Input
-                placeholder="User Name"
-                type="user"
-                onBlur={handleBlur('username')}
-                value={values.username}
-                onChangeText={handleChange('username')}
-                errors={touched.username && errors.username}
-                touched={touched.username}
-              />
-              <Input
-                type="mail"
-                placeholder="Email"
-                onBlur={handleBlur('email')}
-                onChangeText={handleChange('email')}
-                value={values.email}
-                errors={touched.email && errors.email}
-                touched={touched.email}
-              />
-              <Input
-                secureTextEntry
-                placeholder="Password"
-                type="lock"
-                onBlur={handleBlur('password')}
-                onChangeText={handleChange('password')}
-                errors={touched.password && errors.password}
-                value={values.password}
-                touched={touched.password}
-              />
-              <Input
-                type="lock"
-                onBlur={handleBlur('confirm')}
-                onChangeText={handleChange('confirm')}
-                value={values.confirm}
-                secureTextEntry
-                placeholder="Confirm Password"
-                errors={touched.confirm && errors.confirm}
-                touched={touched.confirm}
-              />
+              {RegistrationValues.map((el, index) => {
+                const {
+                  placeholder,
+                  iconName,
+                  fieldName,
+                  secureTextEntry = undefined,
+                } = el;
+                return (
+                  <Input
+                    key={index}
+                    placeholder={placeholder}
+                    type={iconName}
+                    secureTextEntry={secureTextEntry}
+                    onBlur={handleBlur(fieldName)}
+                    // @ts-ignore
+                    value={values[fieldName]}
+                    onChangeText={handleChange(fieldName)}
+                    // @ts-ignore
+                    errors={touched[fieldName] && errors && errors[fieldName]}
+                  />
+                );
+              })}
               <TouchableOpacity
                 onPress={handleSubmit}
-                style={{
-                  backgroundColor: Theme.crimson,
-                  borderRadius: 40,
-                  padding: 13,
-                  width: '70%',
-                  alignSelf: 'center',
-                  marginTop: 40,
-                }}>
-                <Text
-                  style={{
-                    alignSelf: 'center',
-                    fontWeight: 'bold',
-                    fontSize: 17,
-                    color: 'white',
-                  }}>
-                  Sign Up
-                </Text>
+                style={styles.buttonContainer}>
+                <Text style={styles.buttonTextStyle}>Sign Up</Text>
               </TouchableOpacity>
             </View>
           )}
@@ -192,5 +129,31 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     justifyContent: 'space-between',
     flexDirection: 'row',
+  },
+  signUpTitle: {
+    alignSelf: 'center',
+    fontWeight: 'bold',
+    fontSize: 35,
+    color: Theme.white,
+  },
+  whoAreYouTitle: {
+    alignSelf: 'center',
+    fontWeight: 'bold',
+    fontSize: 25,
+    color: Theme.lightSlateBlue,
+  },
+  buttonContainer: {
+    backgroundColor: Theme.crimson,
+    borderRadius: 40,
+    padding: 13,
+    width: '70%',
+    alignSelf: 'center',
+    marginTop: 40,
+  },
+  buttonTextStyle: {
+    alignSelf: 'center',
+    fontWeight: 'bold',
+    fontSize: 17,
+    color: 'white',
   },
 });

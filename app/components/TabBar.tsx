@@ -10,7 +10,7 @@ import {BottomTabBarProps} from '@react-navigation/bottom-tabs';
 import BottomMenuItem from './BottomItem';
 import {Theme} from '../utils/theme';
 
-export const TabBar = ({state, descriptors, navigation}: BottomTabBarProps) => {
+const TabBar = ({state, descriptors, navigation}: BottomTabBarProps) => {
   const totalWidth: number = useWindowDimensions().width;
   const [translateValue] = useState<Animated.AnimatedValue>(
     new Animated.Value(0),
@@ -83,7 +83,7 @@ const style = StyleSheet.create({
     },
     shadowOpacity: 0.1,
     shadowRadius: 4.0,
-    backgroundColor: Theme.lightSlateBlue,
+    backgroundColor: Theme.white,
     elevation: 10,
     position: 'absolute',
     bottom: 0,
@@ -93,7 +93,7 @@ const style = StyleSheet.create({
     position: 'absolute',
     top: 0,
     left: 10,
-    backgroundColor: Theme.white,
+    backgroundColor: Theme.crimson,
     borderRadius: 10,
     width: 50,
   },

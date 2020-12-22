@@ -1,7 +1,13 @@
 import {LoginState} from './interfaces';
-import {LoginActions} from './type';
+import {LoginActions, TestLogin} from './type';
 import {Reducer} from 'redux';
-import {loginFailure, loginStart, loginSuccess} from './contants';
+import {
+  login,
+  loginFailure,
+  loginStart,
+  loginSuccess,
+  logout,
+} from './contants';
 
 const initialState: LoginState = {
   loading: false,
@@ -11,11 +17,19 @@ const initialState: LoginState = {
 
 const loginReducer: Reducer<LoginState> = (
   state: LoginState = initialState,
-  action: LoginActions,
+  action: LoginActions | TestLogin,
 ): LoginState => {
   switch (action.type) {
+    case login:
+      return {
+        ...state,
+        auth: true,
+        data: 'payload' in action ? action.payload : undefined,
+      };
+    case logout:
+      return {...state, auth: false};
     case loginStart:
-      return {...state, loading: true, auth: true};
+      return {...state, loading: true};
     case loginSuccess:
       return {
         ...state,

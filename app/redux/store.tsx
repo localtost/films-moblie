@@ -4,11 +4,12 @@ import {logger} from 'redux-logger';
 import createSagaMiddleware from 'redux-saga';
 import {persistStore, persistReducer} from 'redux-persist';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
+import rootSaga from '../state/films/watcher';
 const key = 'films data';
 const config = {
   key,
   storage: AsyncStorage,
+  blacklist:['filmsState']
 };
 
 const sagaMiddleware = createSagaMiddleware();
@@ -20,3 +21,4 @@ export const store = createStore(
 );
 export const persistor = persistStore(store);
 export default store;
+sagaMiddleware.run(rootSaga);

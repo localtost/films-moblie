@@ -1,43 +1,26 @@
 import {LoginState} from './interfaces';
-import {LoginActions, TestLogin} from './type';
+import {TestLogin} from './type';
 import {Reducer} from 'redux';
-import {
-  login,
-  loginFailure,
-  loginStart,
-  loginSuccess,
-  logout,
-} from './contants';
+import {login, logout} from './contants';
 
 const initialState: LoginState = {
-  loading: false,
   data: undefined,
   auth: false,
 };
 
 const loginReducer: Reducer<LoginState> = (
   state: LoginState = initialState,
-  action: LoginActions | TestLogin,
+  action: TestLogin,
 ): LoginState => {
   switch (action.type) {
     case login:
-      return {
+      return <LoginState>{
         ...state,
         auth: true,
-        data: 'payload' in action ? action.payload : undefined,
+        data: 'payload' in action && action.payload,
       };
     case logout:
       return {...state, auth: false};
-    case loginStart:
-      return {...state, loading: true};
-    case loginSuccess:
-      return {
-        ...state,
-        loading: false,
-        data: 'payload' in action ? action.payload : undefined,
-      };
-    case loginFailure:
-      return {...state, loading: false};
     default:
       return state;
   }

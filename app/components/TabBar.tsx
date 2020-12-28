@@ -83,7 +83,7 @@ const style = StyleSheet.create({
     },
     shadowOpacity: 0.1,
     shadowRadius: 4.0,
-    backgroundColor: Theme.white,
+    backgroundColor: Theme.darkenSlateBlue,
     elevation: 10,
     position: 'absolute',
     bottom: 0,

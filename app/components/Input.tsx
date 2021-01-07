@@ -19,11 +19,15 @@ interface Props {
   onChangeText?: (e: string | ChangeEvent<any>) => void;
   onBlur?: (e: NativeSyntheticEvent<TextInputFocusEventData>) => void;
   errors?: string | undefined | boolean;
+  profile?: boolean;
 }
 
 const Input: React.FC<Props> = (props) => {
   const [isError, setIsError] = useState<boolean>(false);
   const [value, _] = useState<Animated.AnimatedValue>(new Animated.Value(0));
+  const inputColor = !props.profile
+    ? Theme.lightSlateBlue
+    : Theme.darkenSlateBlue;
   const animatedIcon = (): void => {
     Animated.timing(value, {
       toValue: 4,
@@ -50,18 +54,23 @@ const Input: React.FC<Props> = (props) => {
   useEffect(checkError, [props.errors]);
   return (
     <View>
-      <Animated.View style={[styles.container, {paddingLeft: value}]}>
+      <Animated.View
+        style={[
+          styles.container,
+          {paddingLeft: value},
+          props.profile ? styles.profileBorderStyle : {},
+        ]}>
         {props.type && (
           <AntDesign
             style={{paddingLeft: 15}}
             name={props.type}
             size={25}
-            color={isError ? Theme.crimson : Theme.lightSlateBlue}
+            color={isError ? Theme.crimson : inputColor}
           />
         )}
         <TextInput
           style={styles.input}
-          placeholderTextColor={Theme.lightSlateBlue}
+          placeholderTextColor={inputColor}
           {...props}
         />
       </Animated.View>
@@ -80,6 +89,12 @@ const styles = StyleSheet.create({
     paddingTop: 10,
     paddingBottom: 10,
     borderRadius: 40,
+  },
+  profileBorderStyle: {
+    borderColor: Theme.darkenSlateBlue,
+    borderRadius: 0,
+    borderWidth: 0,
+    borderBottomWidth: 1,
   },
   input: {
     color: Theme.white,

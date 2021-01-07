@@ -1,6 +1,6 @@
-import {takeEvery, all} from 'redux-saga/effects';
-import {getFilms} from './constants';
-import {getFilmsData} from './sagas';
+import { takeEvery, all } from 'redux-saga/effects';
+import { getFilms } from './constants';
+import { getFilmsData } from './sagas';
 
 function* filmsWatcher() {
   yield takeEvery(getFilms, getFilmsData);

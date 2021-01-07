@@ -5,7 +5,7 @@ import {
   getFilmsSuccess,
   setSearchTitle,
 } from './constants';
-import {FilmsAction} from './type';
+import { FilmsAction } from './type';
 
 export interface FilmItem {
   Favorite: boolean;

@@ -1,7 +1,7 @@
-import {LoginState} from './interfaces';
-import {TestLogin} from './type';
-import {Reducer} from 'redux';
-import {login, logout} from './contants';
+import { LoginState } from './interfaces';
+import { TestLogin } from './type';
+import { Reducer } from 'redux';
+import { login, logout } from './contants';
 
 const initialState: LoginState = {
   data: undefined,
@@ -20,7 +20,7 @@ const loginReducer: Reducer<LoginState> = (
         data: 'payload' in action && action.payload,
       };
     case logout:
-      return {...state, auth: false};
+      return { ...state, auth: false };
     default:
       return state;
   }

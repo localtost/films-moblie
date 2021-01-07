@@ -1,5 +1,5 @@
-import {login, logout} from './contants';
-import {Action} from 'redux';
+import { login, logout } from './contants';
+import { Action } from 'redux';
 export interface LoginState {
   auth: boolean;
   data: User | undefined;

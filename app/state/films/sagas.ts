@@ -1,18 +1,18 @@
-import {put, call, select} from 'redux-saga/effects';
+import { put, call, select } from 'redux-saga/effects';
 import {
   getFilmsDataStart,
   getFilmsDataSuccess,
   getFilmsDataFailure,
   FilmItem,
 } from './actionCreators';
-import {fetchFilmsBySearch, fetchFilmsByTitle} from './api';
-import {transformResponseData} from '../../helpers/transfromData';
-import {SagaIterator} from '@redux-saga/core';
-import {Alert} from 'react-native';
+import { fetchFilmsBySearch, fetchFilmsByTitle } from './api';
+import { transformResponseData } from '../../helpers/transfromData';
+import { SagaIterator } from '@redux-saga/core';
+import { Alert } from 'react-native';
 
 export function* getFilmsData(): SagaIterator {
   try {
-    const {value} = yield select((state) => state.filmsState);
+    const { value } = yield select((state) => state.filmsState);
     yield put(getFilmsDataStart());
     const searchResponse = yield call(fetchFilmsBySearch, {
       searchTitle: value,
@@ -32,7 +32,7 @@ export function* getFilmsData(): SagaIterator {
 
 const getRequestArrayFromResponse = (
   array: Array<FilmItem>,
-): Array<Promise<void>> => array.map(({Title}) => fetchFilmsByTitle(Title));
+): Array<Promise<void>> => array.map(({ Title }) => fetchFilmsByTitle(Title));
 
 const requestsFilms = async (array: Array<Promise<void>>) =>
   await Promise.all(array);

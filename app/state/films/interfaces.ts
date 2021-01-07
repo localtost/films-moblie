@@ -1,4 +1,4 @@
-import {Action} from 'redux';
+import { Action } from 'redux';
 import {
   getFilmsFailure,
   getFilmsSuccess,
@@ -6,7 +6,7 @@ import {
   setSearchTitle,
   getFilms,
 } from './constants';
-import {FilmItem} from './actionCreators';
+import { FilmItem } from './actionCreators';
 
 
 export interface FilmsState {

@@ -1,4 +1,4 @@
-import {v4 as uuidv4} from 'uuid';
+import { v4 as uuidv4 } from 'uuid';
 
 export const transformResponseData = (data = []) => {
   if (!data || !data.length) {
@@ -6,7 +6,7 @@ export const transformResponseData = (data = []) => {
   }
   const transformData = [];
   const map = new Map();
-  data.forEach(({data}: any) => {
+  data.forEach(({ data }: any) => {
     map.set(data.Title, data);
   });
   for (let [_, value] of map) {

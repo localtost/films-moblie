@@ -11,7 +11,7 @@ const HomeScreen: React.FC = () => {
   const user = images.find((el, index) => index === data!.role);
   return (
     <ScrollView
-      style={{backgroundColor: Theme.darkenSlateBlue}}
+      style={{backgroundColor: Theme.lightSlateBlue}}
       contentContainerStyle={{alignItems: 'center', padding: 15}}>
       <View style={{alignItems: 'center'}}>
         <RoleItem scale={1} role={user} />
@@ -24,6 +24,7 @@ const HomeScreen: React.FC = () => {
               placeholder={placeholder}
               value={data && data[fieldName]}
               secureTextEntry={secureTextEntry}
+              profile
             />
           );
         })}

@@ -9,7 +9,7 @@ const key = 'films data';
 const config = {
   key,
   storage: AsyncStorage,
-  blacklist:['filmsState']
+  blacklist: ['filmsState'],
 };
 
 const sagaMiddleware = createSagaMiddleware();

@@ -9,6 +9,7 @@ import {
 import {BottomTabBarProps} from '@react-navigation/bottom-tabs';
 import BottomMenuItem from './BottomItem';
 import {Theme} from '../utils/theme';
+import * as Animatable from 'react-native-animatable';
 
 const TabBar = ({state, descriptors, navigation}: BottomTabBarProps) => {
   const totalWidth: number = useWindowDimensions().width;

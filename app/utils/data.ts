@@ -1,5 +1,5 @@
-import {ImageSource} from 'react-native-vector-icons/Icon';
-import {Theme} from './theme';
+import { ImageSource } from 'react-native-vector-icons/Icon';
+import { Theme } from './theme';
 
 export interface Item {
   url: ImageSource;

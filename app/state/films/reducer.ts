@@ -1,6 +1,6 @@
-import {FilmsState} from './interfaces';
-import {Reducer} from 'redux';
-import {FilmsAction} from './type';
+import { FilmsState } from './interfaces';
+import { Reducer } from 'redux';
+import { FilmsAction } from './type';
 import {
   getFilmsFailure,
   getFilmsStart,
@@ -20,7 +20,7 @@ const filmsState: Reducer<FilmsState> = (
 ): FilmsState => {
   switch (action.type) {
     case getFilmsStart:
-      return {...state, loading: true};
+      return { ...state, loading: true };
     case getFilmsSuccess:
       return <FilmsState>{
         ...state,
@@ -28,7 +28,7 @@ const filmsState: Reducer<FilmsState> = (
         data: 'payload' in action && action.payload,
       };
     case getFilmsFailure:
-      return {...state, loading: false};
+      return { ...state, loading: false };
     case setSearchTitle:
       return <FilmsState>{
         ...state,

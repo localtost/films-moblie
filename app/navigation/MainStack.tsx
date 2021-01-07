@@ -1,37 +1,28 @@
 import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
-import {
-  BottomTabBarProps,
-  createBottomTabNavigator,
-} from '@react-navigation/bottom-tabs';
-import TabBar from '../components/TabBar';
-import {View, Dimensions} from 'react-native';
-import HomeStackScreen from './dashboard/HomeStack';
-import SettingsStackScreen from './dashboard/SettingStack';
-import PinedStackScreen from './dashboard/PinedStack';
-import {RootStackParamList} from './types';
-import UserStackScreen from './dashboard/UserStack';
+import ButtonStack from './dashboard/ButtomStack';
+import {useSelector} from '../utils/declaration';
+import RegistrationStack from './auth/Registration';
+import {createStackNavigator} from '@react-navigation/stack';
+import {MainStackParamList} from './types';
 
-const Tab = createBottomTabNavigator<RootStackParamList>();
+const Main = createStackNavigator<MainStackParamList>();
 
 export default function MainStack(): JSX.Element {
-  const tabbed: number = Dimensions.get('window').height;
+  const {auth} = useSelector((state) => state.loginState);
   return (
     <NavigationContainer>
-      <Tab.Navigator
-        tabBar={(props: BottomTabBarProps) => <TabBar {...props} />}>
-        <Tab.Screen name="Home" component={HomeStackScreen} />
-        <Tab.Screen name="Pushpino" component={PinedStackScreen} />
-        <Tab.Screen name="Scan1" component={UserStackScreen} />
-        <Tab.Screen name="User" component={UserStackScreen} />
-        <Tab.Screen name="Setting" component={SettingsStackScreen} />
-      </Tab.Navigator>
-      <View
-        style={{
-          height: tabbed / 35,
-          backgroundColor: 'white',
-        }}
-      />
+      <Main.Navigator
+        headerMode="none"
+        screenOptions={{
+          animationTypeForReplace: !auth ? 'pop' : 'push',
+        }}>
+        {auth ? (
+          <Main.Screen name="Main" component={ButtonStack} />
+        ) : (
+          <Main.Screen name="Auth" component={RegistrationStack} />
+        )}
+      </Main.Navigator>
     </NavigationContainer>
   );
 }

@@ -17,3 +17,10 @@ export type PinedStackParamList = {
 export type UserStackParamList = {
   User: undefined;
 };
+export type RegistrationStackParamList = {
+  Login: undefined;
+};
+export type MainStackParamList = {
+  Main: undefined;
+  Auth: undefined;
+};

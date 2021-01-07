@@ -1,12 +1,9 @@
 import React from 'react';
-import {ScrollView, Text} from 'react-native';
+import Layout from '../components/Layout';
+import Filmlist from '../components/FilmList';
 
 const HomeScreen: React.FC = () => {
-  return (
-    <ScrollView style={{backgroundColor: 'white'}}>
-      <Text>HomeScreen</Text>
-    </ScrollView>
-  );
+  return <Layout>{(loading, data) => <Filmlist data={data} />}</Layout>;
 };
 
 export default HomeScreen;
